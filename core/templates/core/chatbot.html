@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container py-5">
+
+<div class="row justify-content-center">
+
+<div class="col-lg-8">
+
+<div class="glass-card chatbot-card shadow-lg p-5">
+
+<h2 class="text-center fw-bold gradient-text mb-4">
+LoanEase AI Assistant
+</h2>
+
+<p class="text-center text-muted mb-4">
+Ask anything about loans, EMI calculations, interest rates, and personal finance.
+</p>
+
+<form method="POST">
+{% csrf_token %}
+
+<div class="mb-4">
+
+<label class="form-label fw-semibold">
+Your Question
+</label>
+
+<textarea
+name="question"
+class="form-control custom-input"
+rows="4"
+placeholder="Example: How is EMI calculated for a home loan?"
+required
+></textarea>
+
+</div>
+
+<div class="text-center">
+
+<button class="btn btn-dark px-5 ai-btn">
+Ask AI
+</button>
+
+</div>
+
+</form>
+
+{% if response %}
+
+<hr class="my-5">
+
+<div class="ai-response-box p-4 fade-in">
+
+<h5 class="fw-bold mb-3">
+AI Response
+</h5>
+
+<p class="ai-text">
+{{ response }}
+</p>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

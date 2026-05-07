@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="row justify-content-center">
+    <div class="col-md-8 col-lg-7">
+
+        <div class="glass-card">
+            <h2 class="fw-bold mb-3">Contact Support</h2>
+
+            <p class="mb-4">
+                Facing any issue or have a query while using LoanEase?
+                Fill out the form below and our support team will assist you.
+            </p>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Name -->
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="name"
+                        value="{{ name|default:'' }}"
+                        {% if user.is_authenticated %}readonly{% endif %}
+                        required>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input
+                        type="email"
+                        class="form-control"
+                        name="email"
+                        value="{{ email|default:'' }}"
+                        {% if user.is_authenticated %}readonly{% endif %}
+                        required>
+                </div>
+
+                <!-- Subject -->
+                <div class="mb-3">
+                    <label class="form-label">Subject</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="subject"
+                        placeholder="Enter subject"
+                        required>
+                </div>
+
+                <!-- Description -->
+                <div class="mb-4">
+                    <label class="form-label">Description</label>
+                    <textarea
+                        class="form-control"
+                        name="message"
+                        rows="4"
+                        placeholder="Describe your issue or query"
+                        required></textarea>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-dark">
+                        Send Message
+                    </button>
+                </div>
+            </form>
+
+            {% if not user.is_authenticated %}
+            <p class="text-muted mt-4" style="font-size: 0.85rem;">
+                Tip: Login to auto-fill your details and track future requests.
+            </p>
+            {% endif %}
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

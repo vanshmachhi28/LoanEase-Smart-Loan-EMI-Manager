@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="glass-card p-5 shadow-lg">
+
+        <h2 class="fw-bold mb-4 text-center">User Loan Applications</h2>
+        <!-- 🔥 Analytics Glass Cards -->
+<div class="row mb-5">
+
+    <div class="col-md-3">
+        <div class="glass-analytics p-4 text-center">
+            <h3>{{ total_loans }}</h3>
+            <p>Total Applications</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="glass-analytics p-4 text-center">
+            <h3 class="text-success">{{ approved_loans }}</h3>
+            <p>Approved</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="glass-analytics p-4 text-center">
+            <h3 class="text-danger">{{ rejected_loans }}</h3>
+            <p>Rejected</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="glass-analytics p-4 text-center">
+            <h3 class="text-warning">{{ pending_loans }}</h3>
+            <p>Pending</p>
+        </div>
+    </div>
+
+</div>
+
+
+        <p class="text-muted text-center mb-4">
+            Review, verify and update the status of submitted loan applications.
+        </p>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>User</th>
+                        <th>Loan Type</th>
+                        <th>Amount</th>
+                        <th>Tenure</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                        <th>Penalty</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for loan in loans %}
+                    <tr>
+                        <td>{{ loan.user.username }}</td>
+                        <td>{{ loan.loan_type.name }}</td>
+                        <td>₹{{ loan.loan_amount }}</td>
+                        <td>{{ loan.tenure_years }} years</td>
+                        <td>
+                            <span class="badge bg-warning status-badge">
+                                {{ loan.status }}
+                            </span>
+                        </td>
+                        <td class="text-danger">
+                                ₹ {{ loan.penalty_amount|floatformat:2 }}
+                        </td>
+
+                        <td>
+                            
+                            <a href="{% url 'update_loan_status' loan.id 'approve' %}" 
+                               class="btn btn-success btn-sm me-2">
+                               Approve
+                            </a>
+
+                            <a href="{% url 'update_loan_status' loan.id 'reject' %}" 
+                               class="btn btn-danger btn-sm">
+                               Reject
+                            </a>
+                        </td>
+                        <a href="{% url 'verify_loan' loan.id %}"
+   class="btn btn-primary btn-sm">
+   Verify Docs
+</a>
+
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">
+                            No pending applications.
+                        </td>
+                        <td>
+    <div class="glass-mini p-3 eligibility-box">
+        <strong>Credit:</strong> {{ loan.credit_score }} <br>
+        <strong>Eligibility:</strong> {{ loan.eligibility_score }}/100 <br>
+        <span class="badge 
+            {% if loan.risk_category == 'Low Risk' %}bg-success
+            {% elif loan.risk_category == 'Medium Risk' %}bg-warning
+            {% else %}bg-danger{% endif %}">
+            {{ loan.risk_category }}
+        </span>
+    </div>
+</td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Approval Toast -->
+<div id="approvalToast" class="approval-toast">
+    ✔ Loan Approved Successfully
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('approved') === '1') {
+        const toast = document.getElementById("approvalToast");
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+</script>
+
+
+
+{% endblock %}

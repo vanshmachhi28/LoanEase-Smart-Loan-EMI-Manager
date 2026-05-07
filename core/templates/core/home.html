@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+
+
+
+<!-- ================= CAROUSEL SECTION ================= -->
+<!-- ================= CAROUSEL SECTION ================= -->
+<section class="mb-5">
+    <div id="loanCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#loanCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#loanCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#loanCarousel" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#loanCarousel" data-bs-slide-to="3"></button>
+            <button type="button" data-bs-target="#loanCarousel" data-bs-slide-to="4"></button>
+        </div>
+
+        <!-- Slides -->
+        <div class="carousel-inner rounded overflow-hidden">
+
+            <div class="carousel-item active">
+                <img src="{% static 'images/carousel/slide1.jpg' %}"
+                     class="d-block w-100 carousel-img" alt="Loan Management">
+                <div class="carousel-caption">
+                    <h5>Smart Loan Management</h5>
+                    <p>Apply and track loans digitally.</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="{% static 'images/carousel/slide2.jpg' %}"
+                     class="d-block w-100 carousel-img" alt="Financial Planning">
+                <div class="carousel-caption">
+                    <h5>Financial Planning</h5>
+                    <p>Plan repayments with clarity.</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="{% static 'images/carousel/slide3.jpg' %}"
+                     class="d-block w-100 carousel-img" alt="Secure Platform">
+                <div class="carousel-caption">
+                    <h5>Secure Platform</h5>
+                    <p>Your data is protected.</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="{% static 'images/carousel/slide4.jpg' %}"
+                     class="d-block w-100 carousel-img" alt="EMI Transparency">
+                <div class="carousel-caption">
+                    <h5>EMI Transparency</h5>
+                    <p>Know exactly what you pay.</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="{% static 'images/carousel/slide5.jpg' %}"
+                     class="d-block w-100 carousel-img" alt="Digital Banking">
+                <div class="carousel-caption">
+                    <h5>Digital Banking Experience</h5>
+                    <p>Fast, paperless, reliable.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#loanCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#loanCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+
+    </div>
+</section>
+
+
+
+<!-- ================= HERO SECTION ================= -->
+<section class="mb-5">
+    <div class="glass-card text-center">
+        <h1 class="fw-bold mb-3">LoanEase</h1>
+        <p class="lead">
+            Smart, Secure & Transparent Loan and EMI Management Platform
+        </p>
+        <p>
+            Designed to simplify loan processes, reduce paperwork,
+            and provide clarity for both customers and financial institutions.
+        </p>
+    </div>
+</section>
+
+
+<!-- ================= FEATURES SECTION ================= -->
+<section class="mb-5">
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="glass-card h-100">
+                <h4>Digital Loan Process</h4>
+                <p>
+                    LoanEase eliminates manual paperwork by digitizing
+                    the entire loan application and management process.
+                </p>
+                <p>
+                    Users can easily apply for loans, track status,
+                    and manage repayments online.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="glass-card h-100">
+                <h4>Secure Authentication</h4>
+                <p>
+                    The platform uses Django’s secure authentication system
+                    to protect user accounts and sensitive financial data.
+                </p>
+                <p>
+                    Role-based access ensures proper data visibility.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="glass-card h-100">
+                <h4>Future Ready</h4>
+                <p>
+                    LoanEase is designed to scale with advanced features
+                    like EMI calculators, loan eligibility checks,
+                    and admin dashboards.
+                </p>
+                <p>
+                    Built with clean and modular architecture.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,207 @@
+/* =================================================
+   BASE VARIABLES
+================================================= */
+:root {
+    --beige: #DDD0C8;
+    --dark: #323232;
+    --glass-bg: rgba(255, 255, 255, 0.45);
+    --glass-border: rgba(255, 255, 255, 0.3);
+}
+
+/* =================================================
+   GLOBAL RESET
+================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, var(--beige), #f3ece7);
+    color: var(--dark);
+    min-height: 100vh;
+}
+
+/* =================================================
+   NAVBAR
+================================================= */
+.glass-nav {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.navbar-brand {
+    color: var(--dark);
+    font-size: 1.4rem;
+}
+
+.nav-link {
+    color: var(--dark);
+    margin: 0 8px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.nav-link::after {
+    content: "";
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(to right, var(--dark), var(--beige));
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    transition: width 0.3s;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* =================================================
+   PAGE WRAPPER
+================================================= */
+.page-wrapper {
+    padding-top: 90px;
+}
+
+/* =================================================
+   BUTTONS
+================================================= */
+.btn-dark {
+    background: var(--dark);
+    border: none;
+}
+
+.btn-dark:hover {
+    background: linear-gradient(135deg, var(--dark), #000);
+}
+
+.btn-outline-dark:hover {
+    background: var(--dark);
+    color: #fff;
+}
+
+/* =================================================
+   GLASS CARDS
+================================================= */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+/* =================================================
+   FORMS
+================================================= */
+form label {
+    font-weight: 500;
+}
+
+form input {
+    border-radius: 8px;
+    padding: 10px;
+}
+
+/* =================================================
+   FOOTER
+================================================= */
+.footer-section {
+    background: var(--dark);
+    color: var(--beige);
+    padding: 50px 0 20px;
+}
+
+.footer-title {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.footer-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.footer-links {
+    list-style: none;
+    padding-left: 0;
+}
+
+.footer-links li {
+    margin-bottom: 8px;
+}
+
+.footer-links a {
+    color: var(--beige);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #ffffff;
+}
+
+.footer-divider {
+    border-color: rgba(255,255,255,0.2);
+    margin: 30px 0;
+}
+
+.footer-bottom {
+    font-size: 0.85rem;
+    opacity: 0.85;
+}
+
+
+
+
+
+.loan-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.loan-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+
+
+
+
+.carousel-img {
+    height: 420px;         
+    width: 100%;
+    object-fit: cover;      
+}
+
+
+.carousel-caption {
+    background: rgba(50, 50, 50, 0.55);
+    backdrop-filter: blur(6px);
+    border-radius: 10px;
+    padding: 12px 18px;
+}
+
+
+
+
+
+.alert-container {
+    margin-top: 110px;   /* pushes below fixed navbar */
+    z-index: 2000;
+    position: relative;
+}
+
+
+
+

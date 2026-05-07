@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="glass-card emi-card p-5 shadow-lg">
+
+        <h2 class="text-center fw-bold gradient-text mb-4">
+            Advanced EMI Calculator
+        </h2>
+
+        <!-- ================= EMI INPUT FORM ================= -->
+
+        <form method="POST" class="mb-5">
+            {% csrf_token %}
+
+            <div class="row g-4">
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Loan Amount (₹)</label>
+                    <input type="number"
+                           name="loan_amount"
+                           value="{{ loan_amount|default:'' }}"
+                           class="form-control custom-input"
+                           placeholder="Enter loan amount"
+                           required>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Interest Rate (%)</label>
+                    <input type="number"
+                           step="0.01"
+                           name="interest_rate"
+                           value="{{ interest_rate|default:'' }}"
+                           class="form-control custom-input"
+                           placeholder="Enter interest rate"
+                           required>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Tenure (Years)</label>
+                    <input type="number"
+                           name="tenure"
+                           value="{{ tenure|default:'' }}"
+                           class="form-control custom-input"
+                           placeholder="Enter tenure"
+                           required>
+                </div>
+
+            </div>
+
+            <div class="text-center mt-4">
+                <button class="btn btn-dark px-5 custom-btn">
+                    Calculate EMI
+                </button>
+            </div>
+
+        </form>
+
+        <!-- ================= LOAN SUMMARY ================= -->
+
+        {% if emi %}
+        <hr class="my-5">
+
+        <div class="glass-mini p-4 mb-5 shadow-sm">
+
+            <h5 class="fw-bold mb-4">Loan Summary</h5>
+
+            <div class="row text-center">
+
+                <div class="col-md-4">
+                    <p class="text-muted">Loan Amount</p>
+                    <h4>₹ {{ loan_amount }}</h4>
+                </div>
+
+                <div class="col-md-4">
+                    <p class="text-muted">Interest Rate</p>
+                    <h4>{{ interest_rate }} %</h4>
+                </div>
+
+                <div class="col-md-4">
+                    <p class="text-muted">Tenure</p>
+                    <h4>{{ tenure }} Years</h4>
+                </div>
+
+            </div>
+<div class="text-center mt-4">
+    <a href="{% url 'download_emi_pdf' %}?loan_amount={{ loan_amount }}&interest_rate={{ interest_rate }}&tenure={{ tenure }}"
+       class="btn btn-dark px-4">
+       Download EMI Report (PDF)
+    </a>
+</div>
+        </div>
+
+        <!-------Download EMI Report Button------->
+        
+
+
+        <!-- ================= EMI RESULT CARDS ================= -->
+
+        <div class="row text-center g-4 mb-5">
+
+    <div class="col-md-4">
+        <div class="result-card p-4">
+            <h6 class="text-muted">Monthly EMI</h6>
+            <h2 class="text-success fw-bold">₹ {{ emi }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="result-card p-4">
+            <h6 class="text-muted">Total Interest Payable</h6>
+            <h2 class="text-danger fw-bold">₹ {{ total_interest }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="result-card p-4">
+            <h6 class="text-muted">Total Repayment Amount</h6>
+            <h2 class="text-primary fw-bold">₹ {{ total_payment }}</h2>
+        </div>
+    </div>
+
+</div>
+
+<!------Button generation via pdf ------->
+
+
+        <!-- ================= CHART SECTION ================= -->
+
+        <div class="row">
+            <div class="col-md-6">
+                <canvas id="pieChart"></canvas>
+            </div>
+            <div class="col-md-6">
+                <canvas id="lineChart"></canvas>
+            </div>
+        </div>
+
+        {% endif %}
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{% if schedule %}
+<script>
+
+const emiSchedule = {{ schedule|safe }};
+
+const principalData = emiSchedule.map(x => x.principal);
+const interestData = emiSchedule.map(x => x.interest);
+const months = emiSchedule.map(x => x.month);
+const balance = emiSchedule.map(x => x.balance);
+
+new Chart(document.getElementById('pieChart'), {
+    type: 'pie',
+    data: {
+        labels: ['Principal', 'Interest'],
+        datasets: [{
+            data: [
+                principalData.reduce((a,b)=>a+b,0),
+                interestData.reduce((a,b)=>a+b,0)
+            ]
+        }]
+    }
+});
+
+new Chart(document.getElementById('lineChart'), {
+    type: 'line',
+    data: {
+        labels: months,
+        datasets: [{
+            label: 'Remaining Balance',
+            data: balance,
+            fill: false
+        }]
+    }
+});
+
+</script>
+{% endif %}
+
+{% endblock %}

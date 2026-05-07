@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+{% with hide_nav=True %}
+{% endwith %}
+
+
+<section class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+
+        <div class="glass-card">
+            <h2 class="fw-bold text-center mb-4">Login to LoanEase</h2>
+
+            <p class="text-center mb-4">
+                Access your account securely to manage your loans
+                and track future EMI details.
+            </p>
+
+            <!-- LOGIN FORM -->
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- 🔑 IMPORTANT: preserves redirect after login -->
+                <input type="hidden" name="next" value="{{ next }}">
+
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    {{ form.username }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    {{ form.password }}
+                </div>
+
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-dark">
+                        Login
+                    </button>
+                </div>
+            </form>
+
+            <div class="text-center mt-3">
+                <a href="{% url 'password_reset' %}" class="text-decoration-none">
+                    Forgot Password?
+                </a>
+            </div>
+
+            <hr class="my-4">
+
+            <p class="text-center">
+                Don’t have an account?
+                <a href="{% url 'register' %}" class="fw-semibold">
+                    Register here
+                </a>
+            </p>
+
+            <p class="text-center mt-3 text-muted" style="font-size: 0.85rem;">
+                LoanEase uses secure authentication mechanisms
+                to protect your financial information.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

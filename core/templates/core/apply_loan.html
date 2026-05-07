@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="glass-card p-5 shadow-lg">
+
+                <h2 class="text-center mb-4 fw-bold">Apply for Loan</h2>
+
+                <p class="text-center text-muted mb-4">
+                    Select a loan product and enter the required details.
+                    Interest rate is automatically applied.
+                </p>
+
+                <form method="POST" enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+                    <!-- Loan Type -->
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Loan Type</label>
+                        <select name="loan_type" id="loanType" class="form-select" required>
+                            <option value="">-- Select Loan Type --</option>
+                            {% for loan in loan_types %}
+                            <option value="{{ loan.id }}" data-interest="{{ loan.interest_rate }}">
+                                {{ loan.name }} ({{ loan.interest_rate }}%)
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Auto Interest Display -->
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Interest Rate (%)</label>
+                        <input type="text" id="interestDisplay" class="form-control" readonly>
+                    </div>
+
+                    <!-- Loan Amount -->
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Loan Amount (₹)</label>
+                        <input type="number" name="loan_amount" class="form-control" required>
+                    </div>
+
+                    <!-- Tenure -->
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Tenure (Years)</label>
+                        <input type="number" name="tenure" class="form-control" required>
+                    </div>
+
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <label class="form-label fw-semibold">Monthly Income (₹)</label>
+        <input type="number" name="income" class="form-control" required>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label fw-semibold">Age</label>
+        <input type="number" name="age" min="18" max="65" class="form-control" required>
+    </div>
+</div>
+
+                    <!-- BANK DETAILS SECTION -->
+<hr class="my-4">
+<h5 class="fw-bold mb-3">Bank Details</h5>
+
+<div class="row mb-3">
+    <div class="col-md-4">
+        <label class="form-label">Account Holder Name</label>
+        <input type="text" name="bank_name"
+               class="form-control custom-input"
+               pattern="[A-Za-z ]{3,50}"
+               required>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Account Number</label>
+        <input type="text" name="account_number"
+               class="form-control custom-input"
+               pattern="[0-9]{9,18}"
+               required>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">IFSC Code</label>
+        <input type="text" name="ifsc_code"
+               class="form-control custom-input"
+               pattern="[A-Z]{4}0[A-Z0-9]{6}"
+               required>
+    </div>
+</div>
+
+
+<div class="mb-3">
+    <label class="form-label">Upload Income Proof</label>
+    <input type="file" name="document" class="form-control">
+</div>
+
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-dark custom-btn">
+                            Submit Application
+                        </button>
+                    </div>
+
+                    <div class="mb-4">
+                     <label class="form-label fw-semibold">Estimated EMI (Preview)</label>
+                     <input type="text" id="emiPreview" class="form-control" readonly>
+                    </div>
+
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- ✅ EMI SCRIPT START -->
+<script>
+const loanTypeSelect = document.getElementById("loanType");
+const interestDisplay = document.getElementById("interestDisplay");
+const amountInput = document.querySelector("[name='loan_amount']");
+const tenureInput = document.querySelector("[name='tenure']");
+const emiPreview = document.getElementById("emiPreview");
+
+function updateInterest() {
+    const selected = loanTypeSelect.options[loanTypeSelect.selectedIndex];
+    const interest = selected.getAttribute("data-interest");
+    interestDisplay.value = interest ? interest : "";
+    calculateEMI();
+}
+
+function calculateEMI() {
+    let P = parseFloat(amountInput.value);
+    let rate = parseFloat(interestDisplay.value);
+    let years = parseFloat(tenureInput.value);
+
+    if (P > 0 && rate > 0 && years > 0) {
+        let R = (rate / 100) / 12;
+        let N = years * 12;
+        let EMI = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
+        emiPreview.value = "₹ " + EMI.toFixed(2);
+    } else {
+        emiPreview.value = "";
+    }
+}
+
+loanTypeSelect.addEventListener("change", updateInterest);
+amountInput.addEventListener("input", calculateEMI);
+tenureInput.addEventListener("input", calculateEMI);
+</script>
+<!-- ✅ EMI SCRIPT END -->
+
+{% endblock %}

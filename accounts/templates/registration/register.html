@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="row justify-content-center align-items-center min-vh-100">
+    <div class="col-md-6 col-lg-5">
+
+        <div class="glass-card p-5 shadow-lg">
+
+            <h2 class="text-center fw-bold mb-4">Create Account</h2>
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+
+                {% if form.errors %}
+                <div class="alert alert-danger text-center">
+                    Please fix the errors below.
+                </div>
+                {% endif %}
+
+                <!-- Username -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Username</label>
+                    {{ form.username }}
+                    {{ form.username.errors }}
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Email</label>
+                    {{ form.email }}
+                    {{ form.email.errors }}
+                </div>
+
+                <!-- Role Dropdown -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Register As</label>
+                    {{ form.role }}
+                    <small class="text-muted">
+                        Default is Customer. Select Agent if you are a loan verification officer.
+                    </small>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Password</label>
+                    {{ form.password1 }}
+                    {{ form.password1.errors }}
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Confirm Password</label>
+                    {{ form.password2 }}
+                    {{ form.password2.errors }}
+                </div>
+
+                <!-- Register Button -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-dark btn-lg register-btn">
+                        Register
+                    </button>
+                </div>
+
+            </form>
+
+            <hr class="my-4">
+
+            <p class="text-center">
+                Already have an account?
+                <a href="{% url 'login' %}" class="fw-semibold text-decoration-none">
+                    Login here
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

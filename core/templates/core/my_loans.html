@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="row justify-content-center">
+    <div class="col-lg-10">
+
+        <div class="glass-card mb-4">
+            <h2 class="fw-bold text-center">My Loan Applications</h2>
+            <p class="text-center text-muted">
+                Track the status of your loan applications below.
+            </p>
+        </div>
+
+        {% if loans %}
+        <div class="row g-4">
+            {% for loan in loans %}
+            <div class="col-md-6">
+                <div class="glass-card h-100 loan-card">
+                    <h5 class="fw-bold mb-3">Loan Details</h5>
+
+                    <p><strong>Amount:</strong> ₹ {{ loan.loan_amount }}</p>
+                    <p><strong>Interest Rate:</strong> {{ loan.interest_rate }}%</p>
+                    <p><strong>Tenure:</strong> {{ loan.tenure_years }} years</p>
+                    <p><strong>Applied On:</strong> {{ loan.applied_at|date:"d M Y" }}</p>
+
+                    <hr>
+
+                    {% if loan.status == "Approved" %}
+    <span class="badge bg-success">Approved</span>
+{% elif loan.status == "Rejected" %}
+    <span class="badge bg-danger">Rejected</span>
+{% else %}
+    <span class="badge bg-warning text-dark">Pending</span>
+{% endif %}
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="glass-card text-center">
+            <p>You have not applied for any loans yet.</p>
+        </div>
+        {% endif %}
+
+        {% if loan.status == "APPROVED" %}
+<div class="alert alert-success animated-alert">
+    🎉 Your Loan Has Been Approved!
+</div>
+{% endif %}
+
+    </div>
+</section>
+
+{% endblock %}
