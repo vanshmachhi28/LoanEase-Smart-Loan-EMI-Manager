@@ -169,7 +169,7 @@ python manage.py runserver
 
 # 👨‍💻 Developed By
 
-## Jay Narendra Machhi
+## Vansh Prakash Machhi
 
 TYBSC Computer Science  
 University of Mumbai
