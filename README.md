@@ -1,4 +1,6 @@
-# 💰 LoanEase – Smart Loan & EMI Manager
+💰 LoanEase
+Smart Loan & EMI Management System
+Python • Django • MySQL
 
 A modern Django-based Loan Management and EMI Calculator System designed to simplify loan processing, EMI calculation, repayment tracking, and customer management for financial institutions.
 
