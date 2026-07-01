@@ -1,4 +1,4 @@
-💰 LoanEase
+💰 LoanEase -
 Smart Loan & EMI Management System
 Python • Django • MySQL
 
