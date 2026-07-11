@@ -47,27 +47,31 @@ A modern Django-based Loan Management and EMI Calculator System designed to simp
 # 📸 Project Screenshots
 
 ## 🔐 Login Page
-![Login](screenshots/login.png)
+![Login](screenshots/login.png.png)
 
 ---
 
 ## 🏠 Dashboard
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](screenshots/dashboard.png.png)
 
 ---
 
 ## 📊 EMI Calculator
-![EMI](screenshots/emi.png)
+![EMI](screenshots/emi_calculator.png.png)
 
 ---
 
 ## 📝 Apply Loan
-![Apply Loan](screenshots/applyloan.png)
+![Apply Loan](screenshots/apply_loan.png.png)
 
 ---
 
-## 👨‍💼 Admin Dashboard
-![Admin](screenshots/admin.png)
+## 📝 Contact Us
+![Apply Loan](screenshots/contactus.png.png)
+
+
+## 👨‍💼 Admin Login
+![Admin](screenshots/admin_login.png.png)
 
 ---
 
